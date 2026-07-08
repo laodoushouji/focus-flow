@@ -1,10 +1,9 @@
-const CACHE_NAME = 'focus-flow-v2';
+const CACHE_NAME = 'focus-flow-v3';
 const ASSETS = [
   './index.html',
   './manifest.json'
 ];
 
-// Install: cache core assets
 self.addEventListener('install', e => {
   e.waitUntil(
     caches.open(CACHE_NAME).then(cache => cache.addAll(ASSETS))
@@ -12,7 +11,6 @@ self.addEventListener('install', e => {
   self.skipWaiting();
 });
 
-// Activate: clean old caches
 self.addEventListener('activate', e => {
   e.waitUntil(
     caches.keys().then(keys =>
@@ -22,29 +20,20 @@ self.addEventListener('activate', e => {
   self.clients.claim();
 });
 
-// Fetch: cache-first for local assets, network-first for everything else
 self.addEventListener('fetch', e => {
-  const url = new URL(e.request.url);
-
-  // Only cache same-origin GET requests
-  if (e.request.method !== 'GET' || url.origin !== location.origin) return;
-
   e.respondWith(
     caches.match(e.request).then(cached => {
-      if (cached) return cached;
-      return fetch(e.request).then(response => {
-        // Cache successful responses for future offline use
-        if (response.ok) {
+      return cached || fetch(e.request).then(response => {
+        if (response.status === 200) {
           const clone = response.clone();
           caches.open(CACHE_NAME).then(cache => cache.put(e.request, clone));
         }
         return response;
+      }).catch(() => {
+        if (e.request.mode === 'navigate') {
+          return caches.match('./index.html');
+        }
       });
-    }).catch(() => {
-      // Offline fallback: serve the cached HTML for navigation requests
-      if (e.request.mode === 'navigate') {
-        return caches.match('./index.html');
-      }
     })
   );
 });
