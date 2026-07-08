@@ -482,34 +482,7 @@ body.long-break .timer-ring .progress { stroke: var(--long); }
   font-size: 18px;
 }
 
-/* Support section */
-.support-section {
-  text-align: center;
-  padding: 24px 0 16px;
-}
-.support-text {
-  font-size: 13px;
-  color: var(--text-dim);
-  margin-bottom: 12px;
-  line-height: 1.5;
-}
-.support-btn {
-  display: inline-block;
-  padding: 10px 24px;
-  border-radius: 50px;
-  background: rgba(255,255,255,0.08);
-  color: var(--text);
-  font-size: 14px;
-  font-weight: 600;
-  text-decoration: none;
-  transition: all var(--transition);
-  border: 1px solid var(--border);
-}
-.support-btn:hover {
-  background: rgba(255,255,255,0.14);
-  border-color: rgba(255,255,255,0.25);
-  transform: scale(1.03);
-}
+/* Support section removed */
 
 /* Responsive */
 @media (max-width: 400px) {
@@ -584,12 +557,6 @@ body.long-break .timer-ring .progress { stroke: var(--long); }
       <div class="stat-label" data-i18n="totalFocus">总专注</div>
     </div>
   </div>
-</div>
-
-<!-- Support -->
-<div class="support-section">
-  <p class="support-text" data-i18n="supportText">如果这个工具对你有帮助，欢迎请作者喝杯咖啡 ☕</p>
-  <a class="support-btn" href="https://buymeacoffee.com/laodoushouji" target="_blank" rel="noopener">$1 Buy me a coffee</a>
 </div>
 
 <!-- Settings Modal -->
@@ -699,7 +666,6 @@ const i18n = {
     breakTime: '休息中...',
     pomodoroFinished: '完成！',
     completed: 'completed',
-    supportText: '如果这个工具对你有帮助，欢迎请作者喝杯咖啡 ☕',
   },
   en: {
     pomodoro: 'Pomodoro',
@@ -738,7 +704,6 @@ const i18n = {
     breakTime: 'On break...',
     pomodoroFinished: 'Done!',
     completed: 'completed',
-    supportText: 'If this tool helps you, buy me a coffee ☕',
   }
 };
 
